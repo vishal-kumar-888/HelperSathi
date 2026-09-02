@@ -5,8 +5,6 @@ class App {
 
   constructor() {
     this.app = express();
-
-
   }
 
   private initializeMiddlewares(): void {

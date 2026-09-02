@@ -1,20 +1,22 @@
-import dotenv from "dotenv";
-import App from "./app";
-
-dotenv.config();
+import App from "./app.js";
+import Environment from "./config/env.js";
+import Database from "./config/Database.js";
 
 class Server {
   private app: App;
-  private port: number;
 
   constructor() {
     this.app = new App();
-    this.port = Number(process.env.PORT) || 5000;
   }
 
-  public start(): void {
-    this.app.app.listen(this.port, () => {
-      console.log(`Server running on port ${this.port}`);
+  public async start(): Promise<void> {
+    const env = Environment.getInstance();
+    const database = Database.getInstance();
+
+    await database.connect();
+
+    this.app.app.listen(env.port, () => {
+      console.log(`Server running on port ${env.port}`);
     });
   }
 }
