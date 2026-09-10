@@ -21,6 +21,7 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
       match: /^[0-9]{10}$/,
+      unique: true,
     },
 
     password: {

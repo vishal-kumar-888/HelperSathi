@@ -9,23 +9,40 @@ class UserRepository {
     }
 
 
+<<<<<<< HEAD
     async getByEmail(email: string): Promise<IUser | null> {
         console.log("Searching email:", email);
 
         const user = await UserModel
             .findOne({ email })
             .lean<IUser>();
+=======
+    async getByEmail(identity: string): Promise<IUser | null> {
+        console.log("Searching email:", identity);
+
+     const user =  await UserModel.findOne({
+            $or: [
+                { email: identity },
+                { phone: identity }
+            ]
+        }).lean<IUser>();
+
+        console.log("Repository result:", !!user);
+>>>>>>> 53e5bfe (commit)
 
         console.log("Repository result:", !!user);
 
         return user;
 
     }
+<<<<<<< HEAD
      async getalluser(): Promise<IUser[]> {
+=======
+    async getalluser(): Promise<IUser[]> {
+>>>>>>> 53e5bfe (commit)
         const users = await UserModel.find().lean<IUser[]>();
         return users;
     }
-
 
 }
 
