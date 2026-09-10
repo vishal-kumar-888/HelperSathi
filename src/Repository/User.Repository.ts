@@ -10,27 +10,20 @@ class UserRepository {
 
 
     async getByEmail(email: string): Promise<IUser | null> {
+        console.log("Searching email:", email);
+
         const user = await UserModel
             .findOne({ email })
             .lean<IUser>();
 
+        console.log("Repository result:", !!user);
+
         return user;
+
     }
-
-    async login(userData: LoginUserDto): Promise<IUser | null> {
-        const identity = userData.identifier; // This is the user's email input
-
-        // FIX: Change { identity } to { email: identity } so MongoDB looks in the email column
-        const user = await UserModel.findOne({ email: identity })
-            .select('+password')
-            .lean<IUser>();
-
-        // FIX: Fixed typo from 'retutn' to 'return'
-        if (!user) {
-            return null;
-        }
-
-        return user;
+     async getalluser(): Promise<IUser[]> {
+        const users = await UserModel.find().lean<IUser[]>();
+        return users;
     }
 
 

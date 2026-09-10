@@ -35,12 +35,18 @@ class UserController {
 
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        const { identifier, password } = req.body;
+        const { email, password } = req.body;
 
         const user = await this.userService.login({
-            identifier,
-            password,
+            identifier: email,
+            password: password,
         });
+        if (!user) {
+            return res.status(401).json({
+                message: "Invalid credentials",
+                success: false,
+            });
+        }
 
         return res.status(200).json({
             message: "Login successful",
@@ -48,6 +54,40 @@ class UserController {
             user,
         });
     };
+    getprofile = async (req: Request, res: Response): Promise<Response> => {
+       const email = req.query.email as string;
+
+        if (!email) {
+            return res.status(400).json({
+                message: "Email query parameter is required",
+                success: false,
+            });
+        }
+
+        const user = await this.userService.getUser(email);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: "User profile retrieved successfully",
+            success: true,
+            user,
+        });
+    };
+   getalluser = async (req: Request, res: Response): Promise<Response> => {
+        const users = await this.userService.getalluser();
+        return res.status(200).json({
+            message: "All users retrieved successfully",
+            success: true,
+            users,
+        });
+    };
 
 
 }
+
+export default UserController;

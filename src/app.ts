@@ -1,14 +1,22 @@
-import  express, { Express } from "express";
+import express from "express";
+import UserRoutes from "./routes/User.routes.js";
 
 class App {
-  public app: Express;
+  public app: express.Application;
 
   constructor() {
     this.app = express();
+
+    this.app.use(express.json());
+
+    this.initializeRoutes();
   }
 
-  private initializeMiddlewares(): void {
-    this.app.use(express.json());
+  private initializeRoutes(): void {
+    this.app.use("/users", UserRoutes);
+    this.app.get("/users", (req, res) => {
+      res.send("Hello, World!");
+    });
   }
 }
 
