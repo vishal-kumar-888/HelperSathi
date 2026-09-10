@@ -14,3 +14,8 @@ export interface IUser extends Document {
   role: UserRole;
   isActive: boolean;
 }
+
+export interface ILoginResponse {
+    user: IUser;
+    token: string;
+}
