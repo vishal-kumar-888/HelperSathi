@@ -35,10 +35,11 @@ class UserController {
 
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        const { email, password } = req.body;
+        const { identifier, password } = req.body;
+        console.log("Identifier:", identifier);
 
         const user = await this.userService.login({
-            identifier: email,
+            identifier: identifier,
             password: password,
         });
         if (!user) {

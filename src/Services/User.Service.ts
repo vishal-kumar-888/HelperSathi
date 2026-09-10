@@ -32,6 +32,7 @@ class UserService {
             data.identifier
         );
 
+        console.log(data.identifier)
         if (!user) {
             throw new Error("Invalid credentials");
         }
