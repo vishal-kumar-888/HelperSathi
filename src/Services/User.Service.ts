@@ -11,7 +11,7 @@ class UserService {
 
     async create(data: CreateUserDto): Promise<CreateUserDto> {
 
-        const email = await this.userRepository.getByEmail(data.email);
+        const email = await this.userRepository.getByIdentity(data.email);
 
 
         if (email) {
@@ -28,7 +28,7 @@ class UserService {
     }
     async login(data: LoginUserDto): Promise<ILoginResponse | null> {
         
-        const user = await this.userRepository.getByEmail(
+        const user = await this.userRepository.getByIdentity(
             data.identifier
         );
 
@@ -54,14 +54,14 @@ class UserService {
     }
 
     async getUser(email: string): Promise<IUser | null> {
-        const user = await this.userRepository.getByEmail(email);
+        const user = await this.userRepository.getByIdentity(email);
         if (!user) {
             return null;
         }
         return user;
     }
    async getalluser(): Promise<IUser[]> {
-        const users = await this.userRepository.getalluser();
+        const users = await this.userRepository.GetAllUsers();
         return users;
     }
 }
