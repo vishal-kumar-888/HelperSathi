@@ -27,6 +27,17 @@ class UserRepository {
         const users = await UserModel.find().lean<IUser[]>();
         return users;
     }
+    async getUserById(userId: string): Promise<IUser | null> {
+        const user = await UserModel.findById(userId).lean<IUser>();
+        return user;
+    }
+
+    async UpdateUserProfile(userId: string, updateData: Partial<IUser>): Promise<IUser | null> {
+        
+        const updatedUser = await UserModel.findByIdAndUpdate(userId,updateData,{ new: true }).lean<IUser>();
+        
+        return updatedUser;
+    }
 }
 
 export default UserRepository;

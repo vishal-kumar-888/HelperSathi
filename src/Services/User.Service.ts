@@ -64,6 +64,58 @@ class UserService {
         const users = await this.userRepository.GetAllUsers();
         return users;
     }
+    async getUserById(userId: string): Promise<IUser | null> {
+        const user = await this.userRepository.getUserById(userId);
+        if (!user) {
+            return null;
+        }
+        return user;
+    }
+    async UpdateUserProfile( userId: string, updatedData: Partial<IUser> ): Promise<IUser | null> {
+        if(!updatedData || !userId){
+            throw new Error("Invalid input data");
+        }
+        const name = updatedData.name;
+        if(name && (name.length < 3)) {throw new Error("Invalid name");}
+        
+        const password = updatedData.password;
+        if (password) {
+            const hashedPassword = await argon2.hash(password);
+            updatedData.password = hashedPassword;
+        }
+        const number = updatedData.phone;
+        if(number && (number.length > 10 || number.length < 10)){
+            throw new Error("Invalid phone number");
+        }
+        
+        const user = await this.userRepository.UpdateUserProfile( userId, updatedData);
+        if (!user) {
+            return null;
+        }
+        return user;
+    }
+    
+    // async deleteUser(userId: string): Promise<IUser | null> {
+    //     const user = await this.userRepository.deleteUser(userId);
+    //     if (!user) {
+    //         return null;
+    //     }
+    //     return user;
+    // }
+    // async deactivateUser(userId: string): Promise<IUser | null> {
+    //     const user = await this.userRepository.deactivateUser(userId);
+    //     if (!user) {
+    //         return null;
+    //     }
+    //     return user;
+    // }
+    // async activateUser(userId: string): Promise<IUser | null> {
+    //     const user = await this.userRepository.activateUser(userId);
+    //     if (!user) {
+    //         return null;
+    //     }
+    //     return user; 
+    // }
 }
 
 export default UserService;

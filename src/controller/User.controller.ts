@@ -87,7 +87,43 @@ class UserController {
             users,
         });
     };
+    UpdateUserProfile = async (req: Request<{ userId: string }>, res: Response): Promise<Response> => {
+        const userId = req.params.userId;
+        const updateData = req.body;
 
+        const updatedUser = await this.userService.UpdateUserProfile(userId, updateData);
+
+        if (!updatedUser) {
+            return res.status(404).json({
+                message: "User not found",
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: "User profile updated successfully",
+            success: true,
+            user: updatedUser,
+        });
+    };
+
+    getUserById = async (req: Request<{ userId: string }>, res: Response): Promise<Response> => {
+        const userId = req.params.userId;
+
+        const user = await this.userService.getUserById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: "User retrieved successfully",
+            success: true,
+            user,
+        });
+    };
 
 }
 

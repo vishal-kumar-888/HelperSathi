@@ -13,8 +13,7 @@ const userController = new UserController(userService);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.get("/getprofile", authMiddleware, userController.getprofile);
-router.get("/getalluser", userController.getalluser);
-
 router.get("/getalluser", authMiddleware, userController.getalluser);
+router.patch("/user/:userId", authMiddleware, userController.UpdateUserProfile);
 
 export default router;
