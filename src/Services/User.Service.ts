@@ -59,7 +59,7 @@ class UserService {
             return null;
         }
         return user;
-    }
+    } 
    async getalluser(): Promise<IUser[]> {
         const users = await this.userRepository.GetAllUsers();
         return users;
