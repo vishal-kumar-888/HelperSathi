@@ -1,5 +1,7 @@
 import express from "express";
 import UserRoutes from "./routes/User.routes.js";
+import WorkerRoutes from "./routes/Worker.routes.js";
+import JobRoutes from "./routes/Jobs.routes.js";
 
 class App {
   public app: express.Application;
@@ -14,8 +16,10 @@ class App {
 
   private initializeRoutes(): void {
     this.app.use("/users", UserRoutes);
-    this.app.get("/users", (req, res) => {
-      res.send("Hello, World!");
+    this.app.use("/workers", WorkerRoutes);
+    this.app.use("/jobs", JobRoutes);
+    this.app.get("/", (req, res) => {
+      res.send("Welcome to the API");
     });
   }
 }
