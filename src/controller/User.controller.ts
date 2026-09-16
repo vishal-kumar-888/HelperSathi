@@ -9,9 +9,9 @@ class UserController {
 
 
     register = async (req: Request, res: Response): Promise<Response> => {
-        const { name, email, phone, password } = req.body;
+        const { name, email, phone, password,role } = req.body;
 
-        if (!name || !email || !phone || !password) {
+        if (!name || !email || !phone || !password || !role) {
             return res.status(400).json({
                 message: "Please provide valid details",
                 success: false,
@@ -23,6 +23,7 @@ class UserController {
             email,
             phone,
             password,
+            role,
         });
 
         return res.status(201).json({
@@ -56,16 +57,16 @@ class UserController {
         });
     };
     getprofile = async (req: Request, res: Response): Promise<Response> => {
-       const email = req.query.email as string;
+       const userId = req.user!.userId; // Assuming the email is stored in req.user after authentication
 
-        if (!email) {
+        if (!userId) {
             return res.status(400).json({
-                message: "Email query parameter is required",
+                message: "User ID is required",
                 success: false,
             });
         }
 
-        const user = await this.userService.getUser(email);
+        const user = await this.userService.getUserById(userId);
         if (!user) {
             return res.status(404).json({
                 message: "User not found",
