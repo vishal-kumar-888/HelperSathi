@@ -1,4 +1,4 @@
-
+import { UserRole } from "../types/User.type";
 
 
 export interface CreateUserDto {
@@ -6,6 +6,7 @@ export interface CreateUserDto {
   email: string;
   phone: string;
   password: string;
+  role: UserRole;
 }
 
 export interface LoginUserDto {
