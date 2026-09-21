@@ -1,7 +1,7 @@
 # HelperSahi 🛠️
 
 
-
+### Find the right helper for your home services.
 HelperSahi is a home-services marketplace designed to connect customers with workers such as electricians, plumbers, and other local service providers.
 
 The platform aims to make it easier for customers to find suitable workers and for workers to discover job opportunities.
