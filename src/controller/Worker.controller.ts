@@ -1,7 +1,7 @@
 import WorkerService from "../Services/WorkerService";
 import { Request, Response } from "express";
 import { Types } from "mongoose";
-import { ICreateWorkerDTO } from "../dtos/CreateWorkerDTO";
+import { ICreateWorkerDTO } from "../dtos/Worker.dto";
 
 class WorkerController {
     constructor(private workerService: WorkerService) { }

@@ -1,4 +1,4 @@
-import { ICreateWorkerDTO } from "../dtos/CreateWorkerDTO";
+import { ICreateWorkerDTO } from "../dtos/Worker.dto";
 import WorkerRepository from "../Repository/Worker.Repository";
 import { IWorker } from "../types/Worker.type";
 import {Types} from "mongoose"

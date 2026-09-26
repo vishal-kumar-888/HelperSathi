@@ -9,7 +9,6 @@ class UserRepository {
     }
 
     async getByIdentity(identity: string): Promise<IUser | null> {
-        console.log("Searching email:", identity);
 
         const user = await UserModel.findOne({
             $or: [
@@ -17,9 +16,6 @@ class UserRepository {
                 { phone: identity }
             ]
         }).lean<IUser>();
-
-        console.log("Repository result:", !!user);
-
         return user;
     }
 
